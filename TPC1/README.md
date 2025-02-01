@@ -7,7 +7,7 @@
 - A104360
 - David Filipe Rocha Figueiredo
 - Foto  
-<img src="images/DavidFilipeRochaFigueiredo.png" width="200px" alt="fotoPerfil">
+<img src="../images/DavidFilipeRochaFigueiredo.png" width="200px" alt="fotoPerfil">
 
 ## Resumo
 
