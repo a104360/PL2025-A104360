@@ -11,6 +11,7 @@
 * *Nome:* David Filipe Rocha Figueiredo  
 * *Número:* A104360
 * *Foto:*  
-![perfil](images/DavidFilipeRochaFigueiredo.png)
+
+<img src="images/DavidFilipeRochaFigueiredo.png" width="150px">
 
 Este repositório tem o objetivo de manter os TPC que serão resolvidos ao longo do semestre para a UC de Processamento de Linguagens do ano letivo de 2024/2025.
