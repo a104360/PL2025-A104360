@@ -4,8 +4,8 @@
 
 ## Autor
 
-- A100550
-- Duarte Machado Leitão
+- A104360
+- David Filipe Rocha Figueiredo
 
 ## Resumo
 
