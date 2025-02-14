@@ -11,30 +11,24 @@
 
 ## Resumo
 
-Pretende-se implementar o programa somador on/off através da linguagem Python.
+Implementação do programa em Python somador on/off.\
+O programa consiste no processamento iterativo das linhas lidas pelo stdin, onde
+se deteta o aparecimento de sequências de dígitos, somando esta sequências.\
+ Este comportamento começa sempre a ser executado quando o programa é executado
+ , mas este pode ser desativado, na condição de que se encontre a string "Off"
+(em qualquer combinação de maiúsculas e minúsculas). Da forma inversa, o
+comportamento pode ser (re)ativado aquando do aparecimento da string "On"(em
+qualquer combinação de maiúsculas e minúsculas).\
+O programa deverá enviar para o stdout o resultado da soma aquando for lido o
+caractér '=', ou se não houver mais nada para ler.
 
-O programa consiste no comportamento de somar as sequências de dígitos que 
-estejam escritas num texto (a implementação irá tratar o texto lendo do stdin).
-
-Com o aparecimento da string "Off" em qualquer combinação de maiúsculas e minúsculas, 
-o comportamento deixa de estar ativo.
-
-De forma inversa, o aparecimento da string "On" com qualquer combinação de 
-maiúsculas e minúsculas, torna o comportamento ativo novamente.
+Por uma questão de comodidade, o programa dá a possibilidade de ser passado um
+ficheiro de texto para ser processado ao invés das linhas serem inseridas 
+manualmente.
 
 ## Lista de Resultados
 
-* On a sunny day, I decided to walk 15 kilometers, but after 5 kilometers, I was off the beaten path. I turned on my GPS and after walking another 10 kilometers, I reached my destination. =
-30
-
-* The concert was on Saturday night. I bought 20 tickets for my friends, but 8 of them couldn't make it. After some convincing, 12 people confirmed their attendance. On the night of the concert, 5 more friends showed up unexpectedly. =
-45
-
-* In the game of basketball, the score was off by 20 points initially. Then our team scored 30 points, but the opposing team was on fire and scored 15 points. We managed to catch up by scoring 10 points, and the final score was announced. =
-25
-
-* On Monday, I started my day with a meeting at 9 AM. After a long discussion, I took a break off work for 1 hour. I resumed at 11 AM and worked until 3 PM. After a 1-hour break, I worked until 5PM. =
-9
-
-* On an adventure, I climbed 50 meters up a hill. After a brief rest of -10 minutes, I climbed another 30 meters. Feeling off, I took a break for -10 minutes. I continued climbing and reached the top after another 20 meters. =
-70
+- [Texto Com On/Off](text.txt)
+- [Resultados Com On/Off](result.txt)
+- [Texto Sem On/Off](text2.txt)
+- [Resultados Sem On/Off](result2.txt)

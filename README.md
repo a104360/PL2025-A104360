@@ -10,7 +10,6 @@
 
 * *Nome:* David Filipe Rocha Figueiredo  
 * *Número:* A104360
-* *Foto:*  
 
 <img src="images/DavidFilipeRochaFigueiredo.png" width="150px">
 
