@@ -108,14 +108,29 @@ def main() -> dict[int,list[str]]:
     return result
     
 if __name__ == '__main__':
+    # Parse do 
     db = main()
+
     # Lista ordenada alfabeticamente dos compositores musicais
-    print(alphaComposers(db))
+    file = open("results/result1.txt","w")
+    sys.stdout = file
+    for a in alphaComposers(db):
+        print(a)
+
+    file.close()
     # Distribuição por período : quantas obras por período
+    file = open("results/result2.txt", "w")
+    sys.stdout = file
     mapper = periods(db)
     for a in mapper:
-        print(f'{a} - {mapper[a]}')
+        sys.stdout.write(f'{a} - {mapper[a]}\n')
+        sys.stdout.flush
+    file.close()
     # Dicionário [periodo,lista alfabetica dos títulos das obras]
+    file = open("results/result3.txt", "w")
+    sys.stdout = file
     composers = periodComposers(db)
     for a in composers:
-        print(f'{a} - {composers[a]}')
+        sys.stdout.write(f'{a} - {composers[a]}\n')
+        sys.stdout.flush()
+    file.close()
