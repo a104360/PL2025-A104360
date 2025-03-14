@@ -1,25 +1,90 @@
 import sys
 import ply.lex as lex
 import re
+from datetime import datetime
 
 stock = dict()
 
-credit = 0
+credit = {
+    "2e":0,
+    "1e":0,
+    "50c":0,
+    "20c":0,
+    "10c":0,
+    "5c":0,
+    "2c":0
+}
+
+machineID = ""
+
+
+def getCredit():
+    global credit
+    sum = 0
+    for a in credit:
+        if a.endswith('e'):
+            sum += int(a.strip('ec')) * credit[a]
+        else:
+            sum += (float(a.strip('ec')) / 100) * credit[a]
+    return sum
+
+def getCents() -> tuple[int,int]:
+    global credit
+    sum = 0
+    sum += credit['50c'] * 50
+    sum += credit['20c'] * 20
+    sum += credit['10c'] * 10
+    sum += credit['5c'] * 5
+    sum += credit['2c'] * 2
+    offset = 0
+    while sum > 100:
+        offset += 1
+        sum -= 100
+    return (offset,sum)
+
+def getEuros():
+    global credit
+    offset_cents = getCents()
+    sum = 0
+    sum += credit['1e']
+    sum += credit['2e'] * 2
+    return str(sum+offset_cents[0]) + 'e' + str(offset_cents[1]) + 'c'
+    
+
+def selectItem(code):
+    global credit,stock
+    item = stock[code]
+    if item[1] > 0:
+        if getCredit() >= item[2]:
+            # Decrease the price of the product
+            
+            print(f'{machineID}: Pode retirar o produto dispensado {item[0]}')
+            print(f'{machineID}: Saldo = {getEuros()}')
 
 def displayItems():
     print("maq:\n")
-    print("cod\t|  nome\t|  quantidade\t|  preço\n")
+    print("cod\t|\tnome\t|\tquantidade\t|\tpreço\n------------------------")
+    for a in stock:
+        print(f'{a}\t {stock[a][0]}\t {stock[a][1]}\t {stock[a][2]}')
 
+
+def getChange():
+    global credit
+    text = ""
+    for a in credit:
+        if a != '2c':
+            if credit[a] > 0:text += f"{credit[a]}x {a}, "
+            continue
+        if credit[a] > 0:text += f'{credit[a]}x {a}.'
+    return text
 
 def selectItem(item):
-    print(f'CREDIT : {credit}')
+    print(f'SALDO : {getCredit()}')
 
 def coin(coin : str):
     global credit
-    if coin.endswith('e'):
-        credit += int(coin.strip('ec'))
-    else:
-        credit += float(coin.strip('ec')) / 100
+    credit[coin] += 1
+    getCredit()
 
 states = (
     ('CHARGE','exclusive'),
@@ -29,8 +94,15 @@ states = (
 tokens = (
     'MOEDA',
     'COD',
-    'LIST'
+    'LIST',
+    'EXIT'
 )
+
+def t_EXIT(t):
+    r'SAIR'
+    print(f"{machineID}: Pode retirar o troco:{getChange()}")
+    print(f"{machineID}: Até à próxima")
+    exit(0)
 
 # Definition of the 
 def t_CHARGE_MOEDA(t):
@@ -50,13 +122,13 @@ def t_SELECT_COD(t):
     return t
 
 def t_SELECT(t):
-    r'SELECT'
+    r'SELECIONAR'
     t.lexer.begin("SELECT")
 
 def t_LIST(t):
     r'LISTAR'
     displayItems()
-    return t
+    #return t
 
 def t_MOEDA(t):
     r'MOEDA'
@@ -74,16 +146,25 @@ t_SELECT_ignore = ' \t'
 
 
 
-def getStock() -> dict:
+def loadMachine() -> dict:
+    """Loads the machine with id and stock"""
     text = ""
     with open("stock.json","r") as file:
         text = file.read()
+
+    # Load machine id
+    global machineID 
+    machineID = re.findall(r'"maq":\"(\w+)\"',text)[0]
+    print(f'{machineID}: {datetime.today().date()}')
     
+
+    # Load Stock
     matches = re.findall(r'"cod":[ ]*(\"\w+\"),\n*[ ]*\"nome\":[ ]*(\"(?:.*?)\"),\n?[ ]*"quant":[ ]*(\d+),\n?[ ]*"preco":[ ]*(\d+.\d*)',text)
 
     for a in matches:
         stock[a[0]] = [a[1],int(a[2]),float(a[3])]
 
+    print(f'Stock carregado, ')
     return stock
 
 
@@ -95,20 +176,28 @@ def main():
         - SELECIONAR A23 (exist / dont exist)
         - SAIR
     """
+    global stock,credit
     
     # Load items 
-    stock = getStock()
+    stock = loadMachine()
+    print('Estado atualizado.')
 
-    credit = 0
+    print(f'{machineID}: Bom dia. Estou disponível para atender o seu pedido.')
 
     # Cycle to read command
 
     lexer = lex.lex()
 
+    sys.stdout.write('>>')
+    sys.stdout.flush()
+
+
     for a in sys.stdin:
         lexer.input(a)
         for tok in lexer:
             print(tok)
+        sys.stdout.write('>>')
+        sys.stdout.flush()
         #match = re.findall(r'LISTAR\n?|MOEDA (\d+[ec],?[ ]*)*|SELECIONAR[ ]*\w+|SAIR',a,re.IGNORECASE)
 
 
