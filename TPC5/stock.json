@@ -1,0 +1,34 @@
+{
+  "vending_machine_stock": [
+    {
+      "cod": "A23",
+      "nome": "água 0.5L",
+      "quant": 8,
+      "preco": 0.7
+    },
+    {
+      "cod": "B12",
+      "nome": "refrigerante lata",
+      "quant": 10,
+      "preco": 1.5
+    },
+    {
+      "cod": "C34",
+      "nome": "suco 300ml",
+      "quant": 5,
+      "preco": 2.0
+    },
+    {
+      "cod": "D56",
+      "nome": "chocolate barra",
+      "quant": 7,
+      "preco": 2.5
+    },
+    {
+      "cod": "E78",
+      "nome": "batata chips",
+      "quant": 6,
+      "preco": 3.0
+    }
+  ]
+}
