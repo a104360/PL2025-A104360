@@ -52,20 +52,76 @@ def getEuros():
     
 
 def selectItem(code):
-    global credit,stock
+    global credit, stock
+    if code not in stock:
+        print(f'{machineID}: Código inválido')
+        print(f'{machineID}: Saldo = {getEuros()}')
+        return
+        
     item = stock[code]
-    if item[1] > 0:
-        if getCredit() >= item[2]:
-            # Decrease the price of the product
+    # Check if item is in stock
+    if item[1] > 0:  
+        current_credit = getCredit()
+        # Check if enough credit
+        if current_credit >= item[2]:  
+        
+            # Item is available and affordable
+            remaining_credit = current_credit - item[2]
             
+            # Reset credit dictionary
+            for coin_type in credit:
+                credit[coin_type] = 0
+                
+            # Convert remaining amount back to coins (starting with largest)
+            remaining_euros = int(remaining_credit)
+            remaining_cents = round((remaining_credit - remaining_euros) * 100)
+            
+            # Add euros back to credit
+            while remaining_euros >= 2:
+                credit['2e'] += 1
+                remaining_euros -= 2
+            
+            if remaining_euros == 1:
+                credit['1e'] += 1
+            
+            # Add cents back to credit
+            while remaining_cents >= 50:
+                credit['50c'] += 1
+                remaining_cents -= 50
+            
+            while remaining_cents >= 20:
+                credit['20c'] += 1
+                remaining_cents -= 20
+            
+            while remaining_cents >= 10:
+                credit['10c'] += 1
+                remaining_cents -= 10
+            
+            while remaining_cents >= 5:
+                credit['5c'] += 1
+                remaining_cents -= 5
+            
+            while remaining_cents >= 2:
+                credit['2c'] += 1
+                remaining_cents -= 2
+            
+            # Adjust inventory
+            item[1] -= 1
             print(f'{machineID}: Pode retirar o produto dispensado {item[0]}')
             print(f'{machineID}: Saldo = {getEuros()}')
+        else:
+            print(f'{machineID}: Crédito insuficiente')
+            print(f'{machineID}: Saldo = {getEuros()}')
+    else:
+        print(f'{machineID}: Produto indisponível')
+        print(f'{machineID}: Saldo = {getEuros()}')
 
+        
 def displayItems():
     print("maq:\n")
     print("cod\t|\tnome\t|\tquantidade\t|\tpreço\n------------------------")
     for a in stock:
-        print(f'{a}\t {stock[a][0]}\t {stock[a][1]}\t {stock[a][2]}')
+        print(f'{a}\t{stock[a][0]}\t\t{stock[a][1]}\t\t{stock[a][2]}')
 
 
 def getChange():
@@ -77,9 +133,6 @@ def getChange():
             continue
         if credit[a] > 0:text += f'{credit[a]}x {a}.'
     return text
-
-def selectItem(item):
-    print(f'SALDO : {getCredit()}')
 
 def coin(coin : str):
     global credit
@@ -119,7 +172,7 @@ def t_SELECT_COD(t):
     # Call select function
     selectItem(t.value)
     t.lexer.begin('INITIAL')
-    return t
+    #return t
 
 def t_SELECT(t):
     r'SELECIONAR'
@@ -159,7 +212,7 @@ def loadMachine() -> dict:
     
 
     # Load Stock
-    matches = re.findall(r'"cod":[ ]*(\"\w+\"),\n*[ ]*\"nome\":[ ]*(\"(?:.*?)\"),\n?[ ]*"quant":[ ]*(\d+),\n?[ ]*"preco":[ ]*(\d+.\d*)',text)
+    matches = re.findall(r'"cod":[ ]*\"(\w+)\",\n*[ ]*\"nome\":[ ]*\"((?:.*?))\",\n?[ ]*"quant":[ ]*(\d+),\n?[ ]*"preco":[ ]*(\d+.\d*)',text)
 
     for a in matches:
         stock[a[0]] = [a[1],int(a[2]),float(a[3])]
