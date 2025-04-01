@@ -1,17 +1,12 @@
 # TPC3 : Conversor de MarkDown para HTML
 
-## Data : 2025-02-27
+## 2025-02-27
 
-## Autor
+### David Filipe Rocha Figueiredo - A104360
 
-- David Filipe Rocha Figueiredo
-- A104360
+![fotoPerfil](../images/DavidFilipeRochaFigueiredoSMALL.png)
 
-<img src="../images/DavidFilipeRochaFigueiredo.png" width="200px" alt="fotoPerfil">
-
-## Resumo
-
-- Pretende-se construir um analisador léxico para uma liguagem de query com a
+Pretende-se construir um analisador léxico para uma liguagem de query com a
 qual se podem escrever frases do género:
 
 ```code

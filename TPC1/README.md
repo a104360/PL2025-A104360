@@ -2,12 +2,9 @@
 
 ## 2025-02-07
 
-## Autor
+### David Filipe Rocha Figueiredo - A104360
 
-- David Filipe Rocha Figueiredo
-- A104360
-
-<img src="../images/DavidFilipeRochaFigueiredo.png" width="200px" alt="fotoPerfil">
+![fotoPerfil](../images/DavidFilipeRochaFigueiredoSMALL.png)
 
 ## Resumo
 

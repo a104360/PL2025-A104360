@@ -1,13 +1,10 @@
 # TPC3 : Conversor de MarkDown para HTML
 
-## Data : 2025-02-27
+## 2025-02-27
 
-## Autor
+### David Filipe Rocha Figueiredo - A104360
 
-- David Filipe Rocha Figueiredo
-- A104360
-
-<img src="../images/DavidFilipeRochaFigueiredo.png" width="200px" alt="fotoPerfil">
+![fotoPerfil](../images/DavidFilipeRochaFigueiredoSMALL.png)
 
 ## Resumo
 
